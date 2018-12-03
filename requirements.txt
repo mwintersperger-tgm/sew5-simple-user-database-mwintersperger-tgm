@@ -3,9 +3,3 @@ pytest-cov
 pytest-html
 flask
 flask_restful
-sqlite3
-email.utils
-uuid
-imghdr
-os
-validate_email
