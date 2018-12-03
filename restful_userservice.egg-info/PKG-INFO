@@ -1,0 +1,40 @@
+Metadata-Version: 1.1
+Name: restful-userservice
+Version: 0.0.1
+Summary: Restful User-Service
+Home-page: https://github.com/TGM-HIT/simple-user-database
+Author: Michael Borko
+Author-email: mborko@tgm.ac.at
+License: UNKNOWN
+Description: # "Restful User-Service"
+        
+        ## Aufgabenstellung
+        Die detaillierte [Aufgabenstellung](TASK.md) beschreibt die notwendigen Schritte zur Realisierung.
+        
+        ## Implementierung
+        
+        
+        ### Deployment
+        
+        Bevor das programm verwendet werden kann muss createDB.py ausgefÃ¼hrt werden um die Datenbank aufzusetzen und "npm run dev" im Client ordner via CLI ausgefÃ¼hrt werden um die grafische OberflÃ¤che zu erzeugen.
+        
+        Der server wird mit "python app.py" im server order ausgefÃ¼hrt.
+        
+        ### Grafische OberflÃ¤che
+        
+        Befindet sich auf localhost:8080.
+        
+        ### Testing
+        
+        Um Testing auszufÃ¼hren einfach npx cypress open eingeben
+        
+        ## Quellen
+        [Flask ReST](https://flask-restful.readthedocs.io/en/latest/quickstart.html#full-example)
+        [Sqlite with Python](https://docs.python.org/3/library/sqlite3.html)
+        [Full-stack single page application with Vue.js and Flask](https://codeburst.io/full-stack-single-page-application-with-vue-js-and-flask-b1e036315532)
+        [Developing a Single Page App with Flask and Vue.js](https://testdriven.io/developing-a-single-page-app-with-flask-and-vuejs)
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
