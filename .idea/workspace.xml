@@ -28,19 +28,6 @@
       <change beforePath="$PROJECT_DIR$/../REST with JSON/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../REST with JSON/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../REST with JSON/todo.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TASK.md" beforeDir="false" afterPath="$PROJECT_DIR$/TASK.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/python/client/config/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/python/client/config/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/python/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/python/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/python/client/src/components/Users.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/python/client/src/components/Users.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/python/client/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/python/client/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/unittest/python/EK/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/unittest/python/GK/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/unittest/python/server/test_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/unittest/python/server/test_server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tox.ini" beforeDir="false" afterPath="$PROJECT_DIR$/tox.ini" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -127,7 +114,7 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="170">
+              <first_editor relative-caret-position="782">
                 <caret line="46" column="63" selection-start-line="46" selection-start-column="63" selection-end-line="46" selection-end-column="63" />
               </first_editor>
               <second_editor>
@@ -172,7 +159,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="484" />
     <option name="y" value="56" />
     <option name="width" value="683" />
@@ -319,7 +306,7 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
@@ -458,7 +445,7 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="170">
+          <first_editor relative-caret-position="782">
             <caret line="46" column="63" selection-start-line="46" selection-start-column="63" selection-end-line="46" selection-end-column="63" />
           </first_editor>
           <second_editor>
