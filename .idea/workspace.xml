@@ -28,6 +28,16 @@
       <change beforePath="$PROJECT_DIR$/../REST with JSON/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../REST with JSON/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../REST with JSON/todo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TASK.md" beforeDir="false" afterPath="$PROJECT_DIR$/TASK.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/python/client/config/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/python/client/config/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/python/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/python/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/python/client/src/components/Users.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/python/client/src/components/Users.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/python/client/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/python/client/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/unittest/python/EK/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/unittest/python/GK/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tox.ini" beforeDir="false" afterPath="$PROJECT_DIR$/tox.ini" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,11 +59,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="gitignore" value="1" />
           <entry key="ini" value="3" />
           <entry key="js" value="2" />
           <entry key="md" value="5" />
           <entry key="py" value="7" />
-          <entry key="txt" value="1" />
+          <entry key="txt" value="3" />
           <entry key="vue" value="4" />
         </counts>
       </usages-collector>
@@ -62,7 +73,7 @@
           <entry key="Ini" value="3" />
           <entry key="JavaScript" value="2" />
           <entry key="Markdown" value="5" />
-          <entry key="PLAIN_TEXT" value="5" />
+          <entry key="PLAIN_TEXT" value="8" />
           <entry key="Python" value="7" />
         </counts>
       </usages-collector>
@@ -102,7 +113,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/python/server/app.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-661">
-              <caret line="20" column="9" lean-forward="true" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+              <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -114,7 +125,7 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="782">
+              <first_editor relative-caret-position="238">
                 <caret line="46" column="63" selection-start-line="46" selection-start-column="63" selection-end-line="46" selection-end-column="63" />
               </first_editor>
               <second_editor>
@@ -413,23 +424,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/python/server/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-661">
-          <caret line="20" column="9" lean-forward="true" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TASK.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
@@ -442,10 +436,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/restful_userservice.egg-info/dependency_links.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/python/server/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-661">
+          <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="782">
+          <first_editor relative-caret-position="238">
             <caret line="46" column="63" selection-start-line="46" selection-start-column="63" selection-end-line="46" selection-end-column="63" />
           </first_editor>
           <second_editor>
