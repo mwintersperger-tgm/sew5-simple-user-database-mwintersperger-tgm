@@ -5,23 +5,78 @@ Die detaillierte [Aufgabenstellung](TASK.md) beschreibt die notwendigen Schritte
 
 ## Implementierung
 
+### Python-Flask
+
+Rest kann auf zwei weisen in Python implementiert werden, in klassen wie im Flask Rest Beispiel oder mit methoden wie in dieser application.
+In beiden fällen werden den methoden und klassen adressen und CRUD befehle zugewiesen auf die sie reagieren.
+
+    @app.route('/users', methods=['GET', 'POST']) # Annotation for the method
+
+Da man mehrere CRUD Befehle einer methode zuweisen kann, muss diese natürlich inerhalb des programms unterscheiden können.
+
+    if request.method == 'POST':
+Da REST mit Json im hintergrund arbeitet müssen die returns der methoden zu Json umgewandelt werden und am besten mit dictionaries inerhalb der methoden gearbeited werden.
+
+    return jsonify(response_object) # Return the dictionary response_object
+
+Die methoden müssen natürlich auch variablen aus der adresszeile lesen können. Besagte variablen sind, wie schon erwähnt, im Json format.
+
+    post_data = request.get_json()
+    post_data.get('username') # Get the value to the key username
+
+#### Imports
+
+    from flask import Flask, jsonify, request
+    from flask_cors import CORS
+
+### Single-Page-Application-with-Vue.js
+
+Vue.js ermöglicht die erzeugung einer webbasierten grafischen oberfläche für Flask applicationen.
+
+Um ein vue.js project zu starten muss man einfach folgendes im passendem directory eingebebn.
+
+    vue init webpack <name>
+
+Die Weboberflächen befinden sich in client/src/components.
+
+Der router ist client/src/router/index.js und erlaubt dir weboberflächen adressen zu zuweisen.
+
+App.vue welches sich in client/src befinded ist der wrapper in dem die anderen .js dateien eigefügt werden.
+Dies ist auch das file in dem man das vue.js logo entfernen kann.
+
+Axios erlaubt vue.js die python-flask application anzusprechen.
+
+#### Dependencies
+
+    Vue = v2.5.2
+    Vue CLI = v2.9.3
+    axios = 0.18.0
+    Node >= v10.3.0
+    npm >= v6.1.0
+    Flask >= v1.0.2
+    Python >= v3.6.5
+
+### Client-Desktop-Application
 
 ### Deployment
 
-Bevor das programm verwendet werden kann muss createDB.py ausgeführt werden um die Datenbank aufzusetzen und "npm run dev" im Client ordner via CLI ausgeführt werden um die grafische Oberfläche zu erzeugen.
+Bevor das programm verwendet werden kann muss createDB.py ausgeführt werden um die Datenbank aufzusetzen und "npm run dev" im Client ordner via CLI ausgeführt werden um die Weboberfläche zu erzeugen.
 
 Der server wird mit "python app.py" im server order ausgeführt.
 
-### Grafische Oberfläche
+### Weboberfläche
 
-Befindet sich auf localhost:8080.
+Befindet sich auf localhost:8080
 
 ### Testing
 
-Um Testing auszuführen einfach npx cypress open eingeben
+Um Testing auszuführen einfach tox eingeben.
 
 ## Quellen
-[Flask ReST](https://flask-restful.readthedocs.io/en/latest/quickstart.html#full-example)
+[Flask Rest](https://flask-restful.readthedocs.io/en/latest/quickstart.html#full-example)
+
 [Sqlite with Python](https://docs.python.org/3/library/sqlite3.html)
+
 [Full-stack single page application with Vue.js and Flask](https://codeburst.io/full-stack-single-page-application-with-vue-js-and-flask-b1e036315532)
+
 [Developing a Single Page App with Flask and Vue.js](https://testdriven.io/developing-a-single-page-app-with-flask-and-vuejs)
