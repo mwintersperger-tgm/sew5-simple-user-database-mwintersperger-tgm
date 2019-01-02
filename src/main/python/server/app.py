@@ -39,6 +39,11 @@ def ping_pong():
 def all_users():
     response_object = {'status': 'success'}
     if request.method == 'POST':
+        print("-----------------------")
+        print("-----------------------")
+        print("HELLO WORLD")
+        print("-----------------------")
+        print("-----------------------")
         post_data = request.get_json()
         if len(post_data.get('username')) <= 256:
             if validate_email(post_data.get('email')) is True:
