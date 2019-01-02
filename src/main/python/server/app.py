@@ -84,9 +84,9 @@ def single_user(user_id):
                     remove_user(user_id)
                     USERS.append({
                         'id': uuid.uuid4().hex,
-                        'title': post_data.get('title'),
-                        'author': post_data.get('author'),
-                        'read': post_data.get('read')
+                        'username': post_data.get('username'),
+                        'email': post_data.get('email'),
+                        'photo': post_data.get('photo')
                     })
                     conn = sqlite3.connect('user.db')
                     c = conn.cursor()
