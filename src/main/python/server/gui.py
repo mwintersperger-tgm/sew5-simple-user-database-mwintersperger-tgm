@@ -4,7 +4,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import requests
 
-import src.main.python.server.app as controller
+#import src.main.python.server.app as controller
 
 class App(QWidget):
 
@@ -54,6 +54,9 @@ class App(QWidget):
         self.show()
 
     def createTable(self):
+        r = requests.get('http://localhost:5000/users')
+        self.USERS = []
+        self.USERS = r.json()["users"]
         # Create Delete Buttons
         #self.deleteButtons = []
         #for i in range(0,len(controller.USERS)):
@@ -62,11 +65,11 @@ class App(QWidget):
         # Create table
         self.tableWidget = QTableWidget()
         self.tableWidget.setRowCount(5)
-        self.tableWidget.setColumnCount(len(controller.USERS))
-        for i in range(0,len(controller.USERS)):
-            self.tableWidget.setItem(0,i, QTableWidgetItem(controller.USERS[i]["username"]))
-            self.tableWidget.setItem(1,i, QTableWidgetItem(controller.USERS[i]["email"]))
-            self.tableWidget.setItem(2,i, QTableWidgetItem(controller.USERS[i]["photo"]))
+        self.tableWidget.setColumnCount(len(self.USERS))
+        for i in range(0,len(self.USERS)):
+            self.tableWidget.setItem(0,i, QTableWidgetItem(self.USERS[i]["username"]))
+            self.tableWidget.setItem(1,i, QTableWidgetItem(self.USERS[i]["email"]))
+            self.tableWidget.setItem(2,i, QTableWidgetItem(self.USERS[i]["photo"]))
             self.tableWidget.setItem(3,i, QTableWidgetItem("temp"))
             self.tableWidget.setItem(4,i, QTableWidgetItem("temp"))
 
@@ -84,7 +87,6 @@ class App(QWidget):
             allEntered = False
         if allEntered:
             r = requests.post('http://localhost:5000/users', json={"username": self.usernameValue, "email": self.emailValue, "photo": self.photoValue})
-            print(r.json()["message"])
             self.label.setText(r.json()["message"])
         self.repaint()
 
