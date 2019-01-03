@@ -39,17 +39,13 @@ def ping_pong():
 def all_users():
     response_object = {'status': 'success'}
     if request.method == 'POST':
-        print("-----------------------")
-        print("-----------------------")
-        print("HELLO WORLD")
-        print("-----------------------")
-        print("-----------------------")
         post_data = request.get_json()
         if len(post_data.get('username')) <= 256:
             if validate_email(post_data.get('email')) is True:
                 for user in USERS:
                     if post_data.get('email') == user['email']:
                         response_object['message'] = 'Email already exists!'
+                        response_object['status'] = 'failure'
                         return jsonify(response_object)
                 if imghdr.what(r''+post_data.get('photo')) is 'png' or imghdr.what(r''+post_data.get('photo')) is 'jpeg':
                     USERS.append({
@@ -66,10 +62,13 @@ def all_users():
                     response_object['message'] = 'User added!'
                 else:
                     response_object['message'] = 'Image not valid!'
+                    response_object['status'] = 'failure'
             else:
                 response_object['message'] = 'Email is not valid!'
+                response_object['status'] = 'failure'
         else:
             response_object['message'] = 'Username too long!'
+            response_object['status'] = 'failure'
     else:
         response_object['users'] = USERS
     return jsonify(response_object)
@@ -84,6 +83,7 @@ def single_user(user_id):
                 for user in USERS:
                     if post_data.get('email') == user['email']:
                         response_object['message'] = 'Email already exists!'
+                        response_object['status'] = 'failure'
                         return jsonify(response_object)
                 if imghdr.what(r''+post_data.get('photo')) is 'png' or imghdr.what(r''+post_data.get('photo')) is 'jpeg':
                     remove_user(user_id)
@@ -101,10 +101,13 @@ def single_user(user_id):
                     response_object['message'] = 'User updated!'
                 else:
                     response_object['message'] = 'Image not valid!'
+                    response_object['status'] = 'failure'
             else:
                 response_object['message'] = 'Email is not valid!'
+                response_object['status'] = 'failure'
         else:
             response_object['message'] = 'Username too long!'
+            response_object['status'] = 'failure'
     if request.method == 'DELETE':
         remove_user(user_id)
         response_object['message'] = 'User removed!'

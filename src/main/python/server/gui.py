@@ -1,7 +1,7 @@
 import sys
-from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QAction, QTableWidget,QTableWidgetItem,QVBoxLayout,QLineEdit,QPushButton
-from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 import requests
 
 import src.main.python.server.app as controller
@@ -27,6 +27,8 @@ class App(QWidget):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
 
+        self.label = QLabel('',self)
+
         self.createTable()
         self.username = QLineEdit(self)
         self.username.textChanged.connect(self.usernameEntered)
@@ -40,6 +42,7 @@ class App(QWidget):
 
         # Add box layout, add table to box layout and add box layout to widget
         self.layout = QVBoxLayout()
+        self.layout.addWidget(self.label)
         self.layout.addWidget(self.tableWidget)
         self.layout.addWidget(self.username)
         self.layout.addWidget(self.email)
@@ -51,6 +54,11 @@ class App(QWidget):
         self.show()
 
     def createTable(self):
+        # Create Delete Buttons
+        #self.deleteButtons = []
+        #for i in range(0,len(controller.USERS)):
+            #self.deleteButtons.append(QPushButton('Delete User', self))
+
         # Create table
         self.tableWidget = QTableWidget()
         self.tableWidget.setRowCount(5)
@@ -76,11 +84,12 @@ class App(QWidget):
             allEntered = False
         if allEntered:
             r = requests.post('http://localhost:5000/users', json={"username": self.usernameValue, "email": self.emailValue, "photo": self.photoValue})
+            print(r.json()["message"])
+            self.label.setText(r.json()["message"])
         self.repaint()
 
     def usernameEntered(self,text):
         self.usernameValue = text
-
 
     def emailEntered(self,text):
         self.emailValue = text
