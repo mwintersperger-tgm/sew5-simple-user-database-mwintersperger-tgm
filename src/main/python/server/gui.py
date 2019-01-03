@@ -68,7 +68,7 @@ class App(QWidget):
             self.tableWidget.setItem(2,i, QTableWidgetItem(self.USERS[i]["photo"]))
             self.tableWidget.setItem(3,i, QTableWidgetItem("Delete User"))
             self.tableWidget.setItem(4,i, QTableWidgetItem("temp"))
-        self.tableWidget.itemDoubleClicked.connect(self.pushedButton)
+        self.tableWidget.itemDoubleClicked.connect(self.pushedTableButton)
 
     def addUser(self):
         allEntered = True
@@ -84,7 +84,15 @@ class App(QWidget):
         if allEntered:
             r = requests.post('http://localhost:5000/users', json={"username": self.usernameValue, "email": self.emailValue, "photo": self.photoValue})
             self.label.setText(r.json()["message"])
-        self.tableWidget.update()
+            r = requests.get('http://localhost:5000/users')
+            self.USERS = r.json()["users"]
+            self.tableWidget.setColumnCount(len(self.USERS))
+            for i in range(0,len(self.USERS)):
+                self.tableWidget.setItem(0,i, QTableWidgetItem(self.USERS[i]["username"]))
+                self.tableWidget.setItem(1,i, QTableWidgetItem(self.USERS[i]["email"]))
+                self.tableWidget.setItem(2,i, QTableWidgetItem(self.USERS[i]["photo"]))
+                self.tableWidget.setItem(3,i, QTableWidgetItem("Delete User"))
+                self.tableWidget.setItem(4,i, QTableWidgetItem("temp"))
 
     def usernameEntered(self,text):
         self.usernameValue = text
@@ -95,12 +103,19 @@ class App(QWidget):
     def photoEntered(self,text):
         self.photoValue = text
 
-    def pushedButton(self,clicked):
+    def pushedTableButton(self,clicked):
         if clicked.row() == 3:
             r = requests.delete('http://localhost:5000/users/%s' % self.USERS[clicked.column()]['id'])
-            self.USERS.remove[clicked.column()]
             self.label.setText(r.json()["message"])
-        self.tableWidget.update()
+            r = requests.get('http://localhost:5000/users')
+            self.USERS = r.json()["users"]
+            self.tableWidget.setColumnCount(len(self.USERS))
+            for i in range(0,len(self.USERS)):
+                self.tableWidget.setItem(0,i, QTableWidgetItem(self.USERS[i]["username"]))
+                self.tableWidget.setItem(1,i, QTableWidgetItem(self.USERS[i]["email"]))
+                self.tableWidget.setItem(2,i, QTableWidgetItem(self.USERS[i]["photo"]))
+                self.tableWidget.setItem(3,i, QTableWidgetItem("Delete User"))
+                self.tableWidget.setItem(4,i, QTableWidgetItem("temp"))
 
 
 
