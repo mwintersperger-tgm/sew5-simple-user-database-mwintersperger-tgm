@@ -55,25 +55,21 @@ class App(QWidget):
 
     def createTable(self):
         r = requests.get('http://localhost:5000/users')
-        self.USERS = []
         self.USERS = r.json()["users"]
-        # Create Delete Buttons
-        #self.deleteButtons = []
-        #for i in range(0,len(controller.USERS)):
-            #self.deleteButtons.append(QPushButton('Delete User', self))
 
         # Create table
         self.tableWidget = QTableWidget()
         self.tableWidget.setRowCount(5)
         self.tableWidget.setColumnCount(len(self.USERS))
+        self.tableWidget.setEditTriggers(QTableWidget.NoEditTriggers )
         for i in range(0,len(self.USERS)):
             self.tableWidget.setItem(0,i, QTableWidgetItem(self.USERS[i]["username"]))
             self.tableWidget.setItem(1,i, QTableWidgetItem(self.USERS[i]["email"]))
             self.tableWidget.setItem(2,i, QTableWidgetItem(self.USERS[i]["photo"]))
-            self.tableWidget.setItem(3,i, QTableWidgetItem("temp"))
+            self.tableWidget.setItem(3,i, QTableWidgetItem("Delete User"))
             self.tableWidget.setItem(4,i, QTableWidgetItem("temp"))
+        self.tableWidget.itemDoubleClicked.connect(self.pushedButton)
 
-    @pyqtSlot()
     def addUser(self):
         allEntered = True
         if self.usernameValue is None:
@@ -88,7 +84,7 @@ class App(QWidget):
         if allEntered:
             r = requests.post('http://localhost:5000/users', json={"username": self.usernameValue, "email": self.emailValue, "photo": self.photoValue})
             self.label.setText(r.json()["message"])
-        self.repaint()
+        self.tableWidget.update()
 
     def usernameEntered(self,text):
         self.usernameValue = text
@@ -98,6 +94,15 @@ class App(QWidget):
 
     def photoEntered(self,text):
         self.photoValue = text
+
+    def pushedButton(self,clicked):
+        if clicked.row() == 3:
+            r = requests.delete('http://localhost:5000/users/%s' % self.USERS[clicked.column()]['id'])
+            self.USERS.remove[clicked.column()]
+            self.label.setText(r.json()["message"])
+        self.tableWidget.update()
+
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

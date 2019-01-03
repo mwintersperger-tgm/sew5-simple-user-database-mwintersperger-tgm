@@ -109,6 +109,7 @@ def single_user(user_id):
             response_object['message'] = 'Username too long!'
             response_object['status'] = 'failure'
     if request.method == 'DELETE':
+        print(user_id)
         remove_user(user_id)
         response_object['message'] = 'User removed!'
     return jsonify(response_object)
