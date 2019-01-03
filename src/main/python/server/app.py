@@ -81,10 +81,11 @@ def single_user(user_id):
         if len(post_data.get('username')) <= 256:
             if validate_email(post_data.get('email')) is True:
                 for user in USERS:
-                    if post_data.get('email') == user['email']:
-                        response_object['message'] = 'Email already exists!'
-                        response_object['status'] = 'failure'
-                        return jsonify(response_object)
+                    if user_id != user['id']:
+                        if post_data.get('email') == user['email']:
+                            response_object['message'] = 'Email already exists!'
+                            response_object['status'] = 'failure'
+                            return jsonify(response_object)
                 if imghdr.what(r''+post_data.get('photo')) is 'png' or imghdr.what(r''+post_data.get('photo')) is 'jpeg':
                     remove_user(user_id)
                     USERS.append({
@@ -109,7 +110,6 @@ def single_user(user_id):
             response_object['message'] = 'Username too long!'
             response_object['status'] = 'failure'
     if request.method == 'DELETE':
-        print(user_id)
         remove_user(user_id)
         response_object['message'] = 'User removed!'
     return jsonify(response_object)

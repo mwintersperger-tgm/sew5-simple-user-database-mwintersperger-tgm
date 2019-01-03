@@ -67,7 +67,7 @@ class App(QWidget):
             self.tableWidget.setItem(1,i, QTableWidgetItem(self.USERS[i]["email"]))
             self.tableWidget.setItem(2,i, QTableWidgetItem(self.USERS[i]["photo"]))
             self.tableWidget.setItem(3,i, QTableWidgetItem("Delete User"))
-            self.tableWidget.setItem(4,i, QTableWidgetItem("temp"))
+            self.tableWidget.setItem(4,i, QTableWidgetItem("Update User"))
         self.tableWidget.itemDoubleClicked.connect(self.pushedTableButton)
 
     def addUser(self):
@@ -92,7 +92,10 @@ class App(QWidget):
                 self.tableWidget.setItem(1,i, QTableWidgetItem(self.USERS[i]["email"]))
                 self.tableWidget.setItem(2,i, QTableWidgetItem(self.USERS[i]["photo"]))
                 self.tableWidget.setItem(3,i, QTableWidgetItem("Delete User"))
-                self.tableWidget.setItem(4,i, QTableWidgetItem("temp"))
+                self.tableWidget.setItem(4,i, QTableWidgetItem("Update User"))
+            self.usernameValue = None
+            self.emailValue = None
+            self.photoValue = None
 
     def usernameEntered(self,text):
         self.usernameValue = text
@@ -115,8 +118,34 @@ class App(QWidget):
                 self.tableWidget.setItem(1,i, QTableWidgetItem(self.USERS[i]["email"]))
                 self.tableWidget.setItem(2,i, QTableWidgetItem(self.USERS[i]["photo"]))
                 self.tableWidget.setItem(3,i, QTableWidgetItem("Delete User"))
-                self.tableWidget.setItem(4,i, QTableWidgetItem("temp"))
+                self.tableWidget.setItem(4,i, QTableWidgetItem("Update User"))
 
+        if clicked.row() == 4:
+            allEntered = True
+            if self.usernameValue is None:
+                #error popup
+                allEntered = False
+            if self.emailValue is  None:
+                #error popup
+                allEntered = False
+            if self.photoValue is  None:
+                #error popup
+                allEntered = False
+            if allEntered:
+                r = requests.put('http://localhost:5000/users/%s' % self.USERS[clicked.column()]['id'], json={"username": self.usernameValue, "email": self.emailValue, "photo": self.photoValue})
+                self.label.setText(r.json()["message"])
+                r = requests.get('http://localhost:5000/users')
+                self.USERS = r.json()["users"]
+                self.tableWidget.setColumnCount(len(self.USERS))
+                for i in range(0,len(self.USERS)):
+                    self.tableWidget.setItem(0,i, QTableWidgetItem(self.USERS[i]["username"]))
+                    self.tableWidget.setItem(1,i, QTableWidgetItem(self.USERS[i]["email"]))
+                    self.tableWidget.setItem(2,i, QTableWidgetItem(self.USERS[i]["photo"]))
+                    self.tableWidget.setItem(3,i, QTableWidgetItem("Delete User"))
+                    self.tableWidget.setItem(4,i, QTableWidgetItem("Update User"))
+                self.usernameValue = None
+                self.emailValue = None
+                self.photoValue = None
 
 
 if __name__ == '__main__':
