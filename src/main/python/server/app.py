@@ -17,35 +17,21 @@ app.config.from_object(__name__)
 
 # enable CORS
 CORS(app)
+
 USERS = [
 ]
 
-def main():
-    if os.path.isfile("user.db") == False:
-        conn = sqlite3.connect('user.db')
-
-        c = conn.cursor()
-
-        # Create table
-        c.execute('''CREATE TABLE users(id text, username text, email text, photo text)''')
-
-        # Save (commit) the changes
-        conn.commit()
-
-        # We can also close the connection if we are done with it.
-        # Just be sure any changes have been committed or they will be lost.
-        conn.close()
-
-    conn = sqlite3.connect('user.db')
-    c = conn.cursor()
-    for row in c.execute('SELECT * FROM users ORDER BY username;'):
-        id, username, email, photo = str(row).split(",")
-        id = id.lstrip("(").strip("'")
-        username = username.strip(" '")
-        email = email.strip(" '")
-        photo = photo.rstrip(")").strip(" '")
-        USERS.append({'id': id, 'username': username, 'email': email, 'photo': photo})
-    conn.close()
+conn = sqlite3.connect('user.db')
+c = conn.cursor()
+c.execute('''CREATE TABLE IF NOT EXISTS users(id text, username text, email text, photo text)''')
+for row in c.execute('SELECT * FROM users ORDER BY username;'):
+    id, username, email, photo = str(row).split(",")
+    id = id.lstrip("(").strip("'")
+    username = username.strip(" '")
+    email = email.strip(" '")
+    photo = photo.rstrip(")").strip(" '")
+    USERS.append({'id': id, 'username': username, 'email': email, 'photo': photo})
+conn.close()
 
 # sanity check route
 @app.route('/ping', methods=['GET'])
@@ -73,12 +59,13 @@ def all_users():
                     })
                     conn = sqlite3.connect('user.db')
                     c = conn.cursor()
+                    c.execute('''CREATE TABLE IF NOT EXISTS users(id text, username text, email text, photo text)''')
                     c.execute("INSERT INTO users VALUES ('%s', '%s','%s','%s');" % (USERS[len(USERS)-1]['id'], post_data.get('username'), post_data.get('email'), post_data.get('photo')))
                     conn.commit()
                     conn.close()
                     response_object['message'] = 'User added!'
                 else:
-                    response_object['message'] = 'Image not valid!'
+                    response_object['message'] = 'Image is not valid!'
                     response_object['status'] = 'failure'
             else:
                 response_object['message'] = 'Email is not valid!'
@@ -113,6 +100,7 @@ def single_user(user_id):
                     })
                     conn = sqlite3.connect('user.db')
                     c = conn.cursor()
+                    c.execute('''CREATE TABLE IF NOT EXISTS users(id text, username text, email text, photo text)''')
                     c.execute("INSERT INTO users VALUES ('%s', '%s','%s','%s');" % (USERS[len(USERS)-1]['id'], post_data.get('username'), post_data.get('email'), post_data.get('photo')))
                     conn.commit()
                     conn.close()
@@ -137,6 +125,7 @@ def remove_user(user_id):
             USERS.remove(user)
             conn = sqlite3.connect('user.db')
             c = conn.cursor()
+            c.execute('''CREATE TABLE IF NOT EXISTS users(id text, username text, email text, photo text)''')
             c.execute("DELETE FROM users WHERE id LIKE '%s';" % user_id)
             conn.commit()
             conn.close()
@@ -144,5 +133,4 @@ def remove_user(user_id):
     return False
 
 if __name__ == '__main__':
-    main()
     app.run()
