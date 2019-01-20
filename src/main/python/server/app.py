@@ -17,19 +17,36 @@ app.config.from_object(__name__)
 
 # enable CORS
 CORS(app)
-
 USERS = [
 ]
-conn = sqlite3.connect('user.db')
-c = conn.cursor()
-for row in c.execute('SELECT * FROM users ORDER BY username;'):
-    id, username, email, photo = str(row).split(",")
-    id = id.lstrip("(").strip("'")
-    username = username.strip(" '")
-    email = email.strip(" '")
-    photo = photo.rstrip(")").strip(" '")
-    USERS.append({'id': id, 'username': username, 'email': email, 'photo': photo})
-conn.close()
+
+def main():
+    if os.path.isfile("user.db") == False:
+        conn = sqlite3.connect('user.db')
+
+        c = conn.cursor()
+
+        # Create table
+        c.execute('''CREATE TABLE users(id text, username text, email text, photo text)''')
+
+        # Save (commit) the changes
+        conn.commit()
+
+        # We can also close the connection if we are done with it.
+        # Just be sure any changes have been committed or they will be lost.
+        conn.close()
+
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    for row in c.execute('SELECT * FROM users ORDER BY username;'):
+        id, username, email, photo = str(row).split(",")
+        id = id.lstrip("(").strip("'")
+        username = username.strip(" '")
+        email = email.strip(" '")
+        photo = photo.rstrip(")").strip(" '")
+        USERS.append({'id': id, 'username': username, 'email': email, 'photo': photo})
+    conn.close()
+
 # sanity check route
 @app.route('/ping', methods=['GET'])
 def ping_pong():
@@ -127,4 +144,5 @@ def remove_user(user_id):
     return False
 
 if __name__ == '__main__':
+    main()
     app.run()

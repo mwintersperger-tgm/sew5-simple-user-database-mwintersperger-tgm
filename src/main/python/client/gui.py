@@ -4,8 +4,6 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import requests
 
-#import src.main.python.server.app as controller
-
 class App(QWidget):
 
     def __init__(self):
@@ -32,10 +30,16 @@ class App(QWidget):
         self.createTable()
         self.username = QLineEdit(self)
         self.username.textChanged.connect(self.usernameEntered)
+        self.usernameLabel = QLabel()
+        self.usernameLabel.setText("Username:")
         self.email = QLineEdit(self)
         self.email.textChanged.connect(self.emailEntered)
+        self.emailLabel = QLabel()
+        self.emailLabel.setText("Email:")
         self.photo = QLineEdit(self)
         self.photo.textChanged.connect(self.photoEntered)
+        self.photoLabel = QLabel()
+        self.photoLabel.setText("Photo:")
 
         self.addUserButton = QPushButton('Add User', self)
         self.addUserButton.clicked.connect(self.addUser)
@@ -44,8 +48,11 @@ class App(QWidget):
         self.layout = QVBoxLayout()
         self.layout.addWidget(self.label)
         self.layout.addWidget(self.tableWidget)
+        self.layout.addWidget(self.usernameLabel)
         self.layout.addWidget(self.username)
+        self.layout.addWidget(self.emailLabel)
         self.layout.addWidget(self.email)
+        self.layout.addWidget(self.photoLabel)
         self.layout.addWidget(self.photo)
         self.layout.addWidget(self.addUserButton)
         self.setLayout(self.layout)

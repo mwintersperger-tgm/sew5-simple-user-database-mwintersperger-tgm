@@ -8,13 +8,14 @@ Die detaillierte [Aufgabenstellung](TASK.md) beschreibt die notwendigen Schritte
 ### Python-Flask
 
 Rest kann auf zwei weisen in Python implementiert werden, in klassen wie im Flask Rest Beispiel oder mit methoden wie in dieser application.
-In beiden fällen werden den methoden und klassen adressen und CRUD befehle zugewiesen auf die sie reagieren.
+In beiden fällen werden den methoden und klassen URL adressen und CRUD befehle zugewiesen auf die sie reagieren.
 
     @app.route('/users', methods=['GET', 'POST']) # Annotation for the method
 
 Da man mehrere CRUD Befehle einer methode zuweisen kann, muss diese natürlich inerhalb des programms unterscheiden können.
 
     if request.method == 'POST':
+
 Da REST mit Json im hintergrund arbeitet müssen die returns der methoden zu Json umgewandelt werden und am besten mit dictionaries inerhalb der methoden gearbeited werden.
 
     return jsonify(response_object) # Return the dictionary response_object
@@ -33,18 +34,22 @@ Die methoden müssen natürlich auch variablen aus der adresszeile lesen können
 
 Vue.js ermöglicht die erzeugung einer webbasierten grafischen oberfläche für Flask applicationen.
 
-Um ein vue.js project zu starten muss man einfach folgendes im passendem directory eingebebn.
+Um ein vue.js project zu starten muss man einfach folgendes im passendem directory eingeben.
 
     vue init webpack <name>
 
 Die Weboberflächen befinden sich in client/src/components.
 
-Der router ist client/src/router/index.js und erlaubt dir weboberflächen adressen zu zuweisen.
+Der router ist client/src/router/index.js und erlaubt dir den weboberflächen URL adressen zu zuweisen.
 
 App.vue welches sich in client/src befinded ist der wrapper in dem die anderen .js dateien eigefügt werden.
 Dies ist auch das file in dem man das vue.js logo entfernen kann.
 
 Axios erlaubt vue.js die python-flask application anzusprechen.
+
+### Client-Desktop-Application
+
+Die Desktop-Application befindet sich im client file um ist ein einfaches PyQT5 programm welches via requests mit dem server communiziert.
 
 #### Dependencies
 
@@ -55,18 +60,21 @@ Axios erlaubt vue.js die python-flask application anzusprechen.
     npm >= v6.1.0
     Flask >= v1.0.2
     Python >= v3.6.5
+    pyqt >= 5
 
-### Client-Desktop-Application
-
-### Deployment
-
-Bevor das programm verwendet werden kann muss createDB.py ausgeführt werden um die Datenbank aufzusetzen und "npm run dev" im Client ordner via CLI ausgeführt werden um die Weboberfläche zu erzeugen.
+## Deployment
 
 Der server wird mit "python app.py" im server order ausgeführt.
 
 ### Weboberfläche
 
-Befindet sich auf localhost:8080
+Om die Weboberfläche zu erzeugen muss "npm run dev" im Client ordner via CLI ausgeführt werden.
+
+Zu finden ist sie dann auf localhost:8080
+
+### Client-Desktop-Application
+
+Die Client-Desktop-Application wird einfach mit "python gui.py" im client ordner ausgeführt. Es muss der server laufen damit sie funktionert.
 
 ### Testing
 

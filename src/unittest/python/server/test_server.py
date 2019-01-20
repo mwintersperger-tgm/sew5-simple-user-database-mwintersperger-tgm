@@ -1,23 +1,29 @@
+import os
+import tempfile
+
 import pytest
-import flask
 
 from src.main.python.server import app as App
 from src.main.python.server import createDB
 
 @pytest.fixture
-def app():
-    app = App
-    return app
+def client():
+    App.app.config['TESTING'] = True
+    client = App.app.test_client()
+
+    yield client
 
 @pytest.fixture
 def db():
     db = createDB
-    return db
+    yield db
 
-def test_ping(app):
-    res = app.get('/ping')
+def test_ping(client):
+    res = client.get('/ping')
     assert res.status_code == 200
 
-def test_app_ping(app):
-    res = app.get('/ping')
+def test_app_ping(client):
+    res = client.get('/ping')
     assert res.json == {'pong!'}
+
+
