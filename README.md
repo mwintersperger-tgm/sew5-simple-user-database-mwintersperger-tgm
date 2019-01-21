@@ -51,17 +51,6 @@ Axios erlaubt vue.js die python-flask application anzusprechen.
 
 Die Desktop-Application befindet sich im client file um ist ein einfaches PyQT5 programm welches via requests mit dem server communiziert.
 
-#### Dependencies
-
-    Vue = v2.5.2
-    Vue CLI = v2.9.3
-    axios = 0.18.0
-    Node >= v10.3.0
-    npm >= v6.1.0
-    Flask >= v1.0.2
-    Python >= v3.6.5
-    pyqt >= 5
-
 ## Deployment
 
 Der server wird mit "python app.py" im server order ausgeführt.
@@ -78,7 +67,10 @@ Die Client-Desktop-Application wird einfach mit "python gui.py" im client ordner
 
 ### Testing
 
-Um Testing auszuführen einfach tox eingeben.
+Um Backend Testing auszuführen einfach tox im project directory eingeben.
+
+Frontend testing wird mittels "npx cypress open" im project directory gestarted.
+Sowohl der Server als auch die weboberfläche müssen hierbei natürlich laufen.
 
 ## Quellen
 [Flask Rest](https://flask-restful.readthedocs.io/en/latest/quickstart.html#full-example)
