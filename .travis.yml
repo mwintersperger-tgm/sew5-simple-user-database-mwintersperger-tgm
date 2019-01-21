@@ -3,4 +3,8 @@ python: "3.4"
 install:
   - pip install -r requirements.txt
   - pip install tox-travis
-script: tox
+  - npm ci
+script:
+  - tox
+  - npm start & wait-on http://localhost:8080
+  - cypress run
