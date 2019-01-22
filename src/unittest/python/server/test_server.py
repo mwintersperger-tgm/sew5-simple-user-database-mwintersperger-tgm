@@ -1,15 +1,20 @@
 import sys
-sys.path.append('''C:\\Users\\mwintersperger.DESKTOP-LGJUDK6\\Desktop\\Schule\\2018-2019\\SEW\\Praxis\\Python\\sew5-simple-user-database-mwintersperger-tgm\\src\\main\\python\\server''')
-from app import app as App
+sys.path.append("/home/michael/tox/sew5-simple-user-database-mwintersperger-tgm")
+from src.main.python.server.app import app as App
 
 import json
 import pytest
-
 
 @pytest.fixture(autouse=True)
 def app():
     app = App
     yield app
+
+@pytest.fixture
+def client():
+    app = App
+    client = app.test_client()
+    return client
 
 # Sanity Tests
 
