@@ -6,7 +6,7 @@ from PyQt5.QtCore import *
 from src.main.python.client.gui import App
 from src.main.python.server.app import app as App
 
-
+"""
 def test_type_textboxes(qtbot):
     window = App()
     window.show()
@@ -120,3 +120,5 @@ def test_update_invalid_user_too_long_username(qtbot):
     assert window.label.text() == "Username too long!"
 #    qtbot.mouseClick(window.tableWidget.item(3, 0), Qt.LeftButton)
 #    assert window.tableWidget.columnCount() == 0
+
+"""
