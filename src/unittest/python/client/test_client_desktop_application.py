@@ -1,4 +1,4 @@
-"""
+
 import pytestqt
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -122,4 +122,3 @@ def test_update_invalid_user_too_long_username(qtbot):
 #    qtbot.mouseClick(window.tableWidget.item(3, 0), Qt.LeftButton)
 #    assert window.tableWidget.columnCount() == 0
 
-"""
