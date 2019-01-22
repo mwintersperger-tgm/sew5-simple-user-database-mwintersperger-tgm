@@ -4,7 +4,6 @@ from app import app as App
 
 import json
 import pytest
-import pytest_flask
 
 
 @pytest.fixture(autouse=True)
