@@ -1,4 +1,3 @@
-"""
 import os
 import tempfile
 import json
@@ -6,7 +5,7 @@ import pytest
 
 from flask import Response
 
-#from src.main.python.server.app import app as App
+from src.main.python.server.app import app as App
 
 @pytest.fixture(autouse=True)
 def app():
@@ -552,5 +551,3 @@ def test_put_invalid_email_code(client):
 #
 #    res = client.put(url2, json=data2)
 #    assert res.status_code == 200
-
-"""
