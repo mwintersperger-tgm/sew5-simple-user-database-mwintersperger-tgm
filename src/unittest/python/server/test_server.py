@@ -1,7 +1,11 @@
-from src.main.python.server.app import app as App
+import sys
+sys.path.append('''C:\\Users\\mwintersperger.DESKTOP-LGJUDK6\\Desktop\\Schule\\2018-2019\\SEW\\Praxis\\Python\\sew5-simple-user-database-mwintersperger-tgm\\src\\main\\python\\server''')
+from app import app as App
 
 import json
 import pytest
+import pytest_flask
+
 
 @pytest.fixture(autouse=True)
 def app():
