@@ -69,7 +69,11 @@ Die Client-Desktop-Application wird einfach mit "python gui.py" im client ordner
 
 Um Backend Testing auszuführen einfach tox im project directory eingeben.
 
-Frontend testing wird mittels "npx cypress open" im project directory gestarted.
+Frontend Testing der Desktop Client Application wird ebenfalls von tox gestarted, benötigt aber einen laufenden Backend server um zu funktionieren.
+
+Da pytest-qt nicht die fähigkeit besitzt Klicks auf die Tabelle zu simulieren benötigen alle Update und Delete Tests Manuellen User Input. Dieser user input besteht daraus auf update/delete des entsprechenden Users zu klicken.
+
+Frontend testing  der Weboberfläche wird mittels "npx cypress open" im project directory gestarted.
 Sowohl der Server als auch die weboberfläche müssen hierbei natürlich laufen.
 
 ## Quellen

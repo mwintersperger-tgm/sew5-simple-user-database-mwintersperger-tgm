@@ -4,6 +4,8 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
 from src.main.python.client.gui import App
+from src.main.python.server.app import app as App
+
 
 def test_type_textboxes(qtbot):
     window = App()
@@ -90,7 +92,8 @@ def test_update_valid_user(qtbot):
     window.username.setText("Michael2")
     window.email.setText("mwintersperger2@student.tgm.ac.at")
     window.photo.setText("test2.jpeg")
-    qtbot.mouseClick(window.tableWidget.item(4, 0), Qt.LeftButton)
+    qtbot.stopForInteraction()
+    #qtbot.mouseDClick(window.tableWidget.item(4, 0), Qt.LeftButton)
     assert window.tableWidget.item(0, 0).text() == "Michael2"
     assert window.tableWidget.item(1, 0).text() == "mwintersperger2@student.tgm.ac.at"
     assert window.tableWidget.item(2, 0).text() == "test2.jpeg"
@@ -112,7 +115,8 @@ def test_update_invalid_user_too_long_username(qtbot):
     qtbot.addWidget(window)
     qtbot.waitForWindowShown(window)
     window.username.setText("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lore")
-    qtbot.mouseClick(window.tableWidget.item(4, 0), Qt.LeftButton)
+    qtbot.stopForInteraction()
+    #qtbot.mouseDClick(window.tableWidget.item(4, 0), Qt.LeftButton)
     assert window.label.text() == "Username too long!"
 #    qtbot.mouseClick(window.tableWidget.item(3, 0), Qt.LeftButton)
 #    assert window.tableWidget.columnCount() == 0
