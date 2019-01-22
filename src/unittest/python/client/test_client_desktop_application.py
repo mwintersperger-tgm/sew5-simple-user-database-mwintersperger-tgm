@@ -1,3 +1,4 @@
+"""
 import pytestqt
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -6,7 +7,7 @@ from PyQt5.QtCore import *
 from src.main.python.client.gui import App
 from src.main.python.server.app import app as App
 
-"""
+
 def test_type_textboxes(qtbot):
     window = App()
     window.show()

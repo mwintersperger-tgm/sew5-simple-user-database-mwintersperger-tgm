@@ -1,3 +1,4 @@
+"""
 import os
 import tempfile
 import json
@@ -6,8 +7,6 @@ import pytest
 from flask import Response
 
 #from src.main.python.server.app import app as App
-
-"""
 
 @pytest.fixture(autouse=True)
 def app():
