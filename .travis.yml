@@ -1,4 +1,4 @@
 language: python
 python:
   - "3.6"
-script: pytest src\unittest\python\server\test_server.py
+script: pytest src\\unittest\\python\\server\\test_server.py
