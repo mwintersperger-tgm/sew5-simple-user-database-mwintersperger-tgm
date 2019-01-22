@@ -1,5 +1,5 @@
 import sys
-sys.path.append("/home/michael/tox/sew5-simple-user-database-mwintersperger-tgm")
+sys.path.append(".")
 from src.main.python.server.app import app as App
 
 import json
