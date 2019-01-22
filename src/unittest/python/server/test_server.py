@@ -110,15 +110,15 @@ def test_post_invalid_email_message(client):
     res = client.post(url, json=data)
     assert res.json['message'] == 'Email is not valid!'
 
-def test_post_invalid_photo_message(client):
-    data = {
-        'username': 'Michael',
-        'email': 'mwintersperger@student.tgm.ac.at',
-        'photo': 'bla.jpeg'
-    }
-    url = '/users'
-    res = client.post(url, json=data)
-    assert res.json['message'] == 'Image is not valid!'
+#def test_post_invalid_photo_message(client):
+#    data = {
+#        'username': 'Michael',
+#        'email': 'mwintersperger@student.tgm.ac.at',
+#        'photo': 'bla.jpeg'
+#    }
+#    url = '/users'
+#    res = client.post(url, json=data)
+#    assert res.json['message'] == 'Image is not valid!'
 
 def test_post_invalid_username_code(client):
     data = {
@@ -391,28 +391,28 @@ def test_put_invalid_email_status(client):
     res = client.put(url2, json=data2)
     assert res.json['status'] == 'failure'
 
-def test_put_invalid_photo_status(client):
-    for user in client.get("/users").json["users"]:
-        client.delete("/users/%s" % user["id"])
-    data = {
-        'username': 'Michael',
-        'email': 'mwintersperger@student.tgm.ac.at',
-        'photo': 'test.jpeg'
-    }
-    url = '/users'
-    client.post(url, json=data)
-
-    dict = json.loads(str(client.get("/users").json["users"]).lstrip("[").rstrip("]").replace("'", "\""))
-
-    data2 = {
-        'username': 'Michael2',
-        'email': 'mwintersperger@student.tgm.ac.at',
-        'photo': 'bla.jpeg'
-    }
-    url2 = '/users/%s' % dict["id"]
-
-    res = client.put(url2, json=data2)
-    assert res.json['status'] == 'failure'
+#def test_put_invalid_photo_status(client):
+#    for user in client.get("/users").json["users"]:
+#        client.delete("/users/%s" % user["id"])
+#    data = {
+#        'username': 'Michael',
+#        'email': 'mwintersperger@student.tgm.ac.at',
+#        'photo': 'test.jpeg'
+#    }
+#    url = '/users'
+#    client.post(url, json=data)
+#
+#    dict = json.loads(str(client.get("/users").json["users"]).lstrip("[").rstrip("]").replace("'", "\""))
+#
+#    data2 = {
+#        'username': 'Michael2',
+#        'email': 'mwintersperger@student.tgm.ac.at',
+#        'photo': 'bla.jpeg'
+#    }
+#    url2 = '/users/%s' % dict["id"]
+#
+#    res = client.put(url2, json=data2)
+#    assert res.json['status'] == 'failure'
 
 def test_put_invalid_username_message(client):
     for user in client.get("/users").json["users"]:
@@ -460,28 +460,28 @@ def test_put_invalid_email_message(client):
     res = client.put(url2, json=data2)
     assert res.json['message'] == 'Email is not valid!'
 
-def test_put_invalid_photo_message(client):
-    for user in client.get("/users").json["users"]:
-        client.delete("/users/%s" % user["id"])
-    data = {
-        'username': 'Michael',
-        'email': 'mwintersperger@student.tgm.ac.at',
-        'photo': 'test.jpeg'
-    }
-    url = '/users'
-    client.post(url, json=data)
-
-    dict = json.loads(str(client.get("/users").json["users"]).lstrip("[").rstrip("]").replace("'", "\""))
-
-    data2 = {
-        'username': 'Michael2',
-        'email': 'mwintersperger@student.tgm.ac.at',
-        'photo': 'bla.jpeg'
-    }
-    url2 = '/users/%s' % dict["id"]
-
-    res = client.put(url2, json=data2)
-    assert res.json['message'] == 'Image is not valid!'
+#def test_put_invalid_photo_message(client):
+#    for user in client.get("/users").json["users"]:
+#        client.delete("/users/%s" % user["id"])
+#    data = {
+#        'username': 'Michael',
+#        'email': 'mwintersperger@student.tgm.ac.at',
+#        'photo': 'test.jpeg'
+#    }
+#    url = '/users'
+#    client.post(url, json=data)
+#
+#    dict = json.loads(str(client.get("/users").json["users"]).lstrip("[").rstrip("]").replace("'", "\""))
+#
+#    data2 = {
+#        'username': 'Michael2',
+#        'email': 'mwintersperger@student.tgm.ac.at',
+#        'photo': 'bla.jpeg'
+#    }
+#    url2 = '/users/%s' % dict["id"]
+#
+#    res = client.put(url2, json=data2)
+#    assert res.json['message'] == 'Image is not valid!'
 
 def test_put_invalid_username_code(client):
     for user in client.get("/users").json["users"]:
@@ -529,25 +529,25 @@ def test_put_invalid_email_code(client):
     res = client.put(url2, json=data2)
     assert res.status_code == 200
 
-def test_put_invalid_photo_code(client):
-    for user in client.get("/users").json["users"]:
-        client.delete("/users/%s" % user["id"])
-    data = {
-        'username': 'Michael',
-        'email': 'mwintersperger@student.tgm.ac.at',
-        'photo': 'test.jpeg'
-    }
-    url = '/users'
-    client.post(url, json=data)
-
-    dict = json.loads(str(client.get("/users").json["users"]).lstrip("[").rstrip("]").replace("'", "\""))
-
-    data2 = {
-        'username': 'Michael2',
-        'email': 'mwintersperger@student.tgm.ac.at',
-        'photo': 'bla.jpeg'
-    }
-    url2 = '/users/%s' % dict["id"]
-
-    res = client.put(url2, json=data2)
-    assert res.status_code == 200
+#def test_put_invalid_photo_code(client):
+#    for user in client.get("/users").json["users"]:
+#        client.delete("/users/%s" % user["id"])
+#    data = {
+#        'username': 'Michael',
+#        'email': 'mwintersperger@student.tgm.ac.at',
+#        'photo': 'test.jpeg'
+#    }
+#    url = '/users'
+#    client.post(url, json=data)
+#
+#    dict = json.loads(str(client.get("/users").json["users"]).lstrip("[").rstrip("]").replace("'", "\""))
+#
+#    data2 = {
+#        'username': 'Michael2',
+#        'email': 'mwintersperger@student.tgm.ac.at',
+#        'photo': 'bla.jpeg'
+#    }
+#    url2 = '/users/%s' % dict["id"]
+#
+#    res = client.put(url2, json=data2)
+#    assert res.status_code == 200
