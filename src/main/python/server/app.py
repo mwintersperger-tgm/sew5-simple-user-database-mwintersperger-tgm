@@ -50,21 +50,22 @@ def all_users():
                         response_object['message'] = 'Email already exists!'
                         response_object['status'] = 'failure'
                         return jsonify(response_object)
-                if imghdr.what(r''+post_data.get('photo')) is 'png' or imghdr.what(r''+post_data.get('photo')) is 'jpeg':
-                    USERS.append({
-                        'id': uuid.uuid4().hex,
-                        'username': post_data.get('username'),
-                        'email': post_data.get('email'),
-                        'photo': post_data.get('photo')
-                    })
-                    conn = sqlite3.connect('user.db')
-                    c = conn.cursor()
-                    c.execute('''CREATE TABLE IF NOT EXISTS users(id text, username text, email text, photo text)''')
-                    c.execute("INSERT INTO users VALUES ('%s', '%s','%s','%s');" % (USERS[len(USERS)-1]['id'], post_data.get('username'), post_data.get('email'), post_data.get('photo')))
-                    conn.commit()
-                    conn.close()
-                    response_object['message'] = 'User added!'
-                else:
+                try:
+                    if imghdr.what(r''+post_data.get('photo')) is 'png' or imghdr.what(r''+post_data.get('photo')) is 'jpeg':
+                        USERS.append({
+                            'id': uuid.uuid4().hex,
+                            'username': post_data.get('username'),
+                            'email': post_data.get('email'),
+                            'photo': post_data.get('photo')
+                        })
+                        conn = sqlite3.connect('user.db')
+                        c = conn.cursor()
+                        c.execute('''CREATE TABLE IF NOT EXISTS users(id text, username text, email text, photo text)''')
+                        c.execute("INSERT INTO users VALUES ('%s', '%s','%s','%s');" % (USERS[len(USERS)-1]['id'], post_data.get('username'), post_data.get('email'), post_data.get('photo')))
+                        conn.commit()
+                        conn.close()
+                        response_object['message'] = 'User added!'
+                except:
                     response_object['message'] = 'Image is not valid!'
                     response_object['status'] = 'failure'
             else:
@@ -90,23 +91,24 @@ def single_user(user_id):
                             response_object['message'] = 'Email already exists!'
                             response_object['status'] = 'failure'
                             return jsonify(response_object)
-                if imghdr.what(r''+post_data.get('photo')) is 'png' or imghdr.what(r''+post_data.get('photo')) is 'jpeg':
-                    remove_user(user_id)
-                    USERS.append({
-                        'id': uuid.uuid4().hex,
-                        'username': post_data.get('username'),
-                        'email': post_data.get('email'),
-                        'photo': post_data.get('photo')
-                    })
-                    conn = sqlite3.connect('user.db')
-                    c = conn.cursor()
-                    c.execute('''CREATE TABLE IF NOT EXISTS users(id text, username text, email text, photo text)''')
-                    c.execute("INSERT INTO users VALUES ('%s', '%s','%s','%s');" % (USERS[len(USERS)-1]['id'], post_data.get('username'), post_data.get('email'), post_data.get('photo')))
-                    conn.commit()
-                    conn.close()
-                    response_object['message'] = 'User updated!'
-                else:
-                    response_object['message'] = 'Image not valid!'
+                try:
+                    if imghdr.what(r''+post_data.get('photo')) is 'png' or imghdr.what(r''+post_data.get('photo')) is 'jpeg':
+                        remove_user(user_id)
+                        USERS.append({
+                            'id': uuid.uuid4().hex,
+                            'username': post_data.get('username'),
+                            'email': post_data.get('email'),
+                            'photo': post_data.get('photo')
+                        })
+                        conn = sqlite3.connect('user.db')
+                        c = conn.cursor()
+                        c.execute('''CREATE TABLE IF NOT EXISTS users(id text, username text, email text, photo text)''')
+                        c.execute("INSERT INTO users VALUES ('%s', '%s','%s','%s');" % (USERS[len(USERS)-1]['id'], post_data.get('username'), post_data.get('email'), post_data.get('photo')))
+                        conn.commit()
+                        conn.close()
+                        response_object['message'] = 'User updated!'
+                except:
+                    response_object['message'] = 'Image is not valid!'
                     response_object['status'] = 'failure'
             else:
                 response_object['message'] = 'Email is not valid!'
