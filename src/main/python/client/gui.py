@@ -80,13 +80,10 @@ class App(QWidget):
     def addUser(self):
         allEntered = True
         if self.usernameValue is None:
-            #error popup
             allEntered = False
         if self.emailValue is  None:
-            #error popup
             allEntered = False
         if self.photoValue is  None:
-            #error popup
             allEntered = False
         if allEntered:
             r = requests.post('http://localhost:5000/users', json={"username": self.usernameValue, "email": self.emailValue, "photo": self.photoValue})
@@ -103,6 +100,13 @@ class App(QWidget):
             self.usernameValue = None
             self.emailValue = None
             self.photoValue = None
+        else:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText("Error")
+            msg.setInformativeText('empty textfields')
+            msg.setWindowTitle("Error")
+            msg.exec_()
 
     def usernameEntered(self,text):
         self.usernameValue = text
@@ -130,13 +134,10 @@ class App(QWidget):
         if clicked.row() == 4:
             allEntered = True
             if self.usernameValue is None:
-                #error popup
                 allEntered = False
-            if self.emailValue is  None:
-                #error popup
+            if self.emailValue is None:
                 allEntered = False
-            if self.photoValue is  None:
-                #error popup
+            if self.photoValue is None:
                 allEntered = False
             if allEntered:
                 r = requests.put('http://localhost:5000/users/%s' % self.USERS[clicked.column()]['id'], json={"username": self.usernameValue, "email": self.emailValue, "photo": self.photoValue})
@@ -153,7 +154,13 @@ class App(QWidget):
                 self.usernameValue = None
                 self.emailValue = None
                 self.photoValue = None
-
+            else:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Critical)
+                msg.setText("Error")
+                msg.setInformativeText('empty textfields')
+                msg.setWindowTitle("Error")
+                msg.exec_()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

@@ -5,11 +5,6 @@ from src.main.python.server.app import app as App
 import json
 import pytest
 
-@pytest.fixture(autouse=True)
-def app():
-    app = App
-    yield app
-
 @pytest.fixture
 def client():
     app = App
