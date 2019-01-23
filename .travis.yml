@@ -3,4 +3,7 @@ python:
   - "3.6"
 install: 
   - pip install tox
-script: tox
+  - npm ci
+script:
+  - tox
+  - npx cypress run --record --key 095e4bfe-283c-4af1-87dd-d4374b6f3645
