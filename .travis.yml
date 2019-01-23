@@ -5,5 +5,8 @@ install:
   - pip install tox
 script:
   - tox
-  - npm install
+  - python src/main/python/server/app.py
+  - cd src/main/python/client
+  - npm run dev
+  - cd ../../../..
   - npx cypress run --record --key 095e4bfe-283c-4af1-87dd-d4374b6f3645
