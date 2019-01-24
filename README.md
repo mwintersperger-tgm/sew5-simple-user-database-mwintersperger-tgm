@@ -25,6 +25,24 @@ Die methoden müssen natürlich auch variablen aus der adresszeile lesen können
     post_data = request.get_json()
     post_data.get('username') # Get the value to the key username
 
+Damit das programm auch als Webserver läuft muss man folgende zeilen in seinem Programm einfügen.
+
+    # configuration
+    DEBUG = True
+
+    # instantiate the app
+    app = Flask(__name__)
+    app.config.from_object(__name__)
+
+    # enable CORS
+    CORS(app)
+
+Diesen server muss man natürlich auch bei programm aufruf starten.
+
+    if __name__ == '__main__':
+        app.run()
+
+
 #### Imports
 
     from flask import Flask, jsonify, request
