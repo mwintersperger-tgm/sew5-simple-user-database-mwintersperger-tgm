@@ -1,7 +1,11 @@
 language: python
 python:
   - "3.6"
-install: 
+before_install:
+  - pip install --user codecov
+install:
   - pip install tox
+after_success:
+  - codecov --file coverage/lcov.info --disable search
 script:
   - tox
