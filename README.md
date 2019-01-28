@@ -1,4 +1,4 @@
-# "Restful User-Service"
+# "Restful User-Service" [![Build Status](https://travis-ci.com/mwintersperger-tgm/sew5-simple-user-database-mwintersperger-tgm.svg?branch=master)](https://travis-ci.com/mwintersperger-tgm/sew5-simple-user-database-mwintersperger-tgm)
 
 ## Aufgabenstellung
 Die detaillierte [Aufgabenstellung](TASK.md) beschreibt die notwendigen Schritte zur Realisierung.
@@ -83,7 +83,7 @@ Zu finden ist sie dann auf localhost:8080
 
 Die Client-Desktop-Application wird einfach mit "python gui.py" im client ordner ausgeführt. Es muss der server laufen damit sie funktionert.
 
-### Testing
+### Testing 
 
 Um Backend Testing auszuführen einfach tox im project directory eingeben.
 
