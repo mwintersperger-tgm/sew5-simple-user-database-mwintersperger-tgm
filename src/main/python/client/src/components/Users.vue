@@ -66,6 +66,16 @@
                       placeholder="Enter email">
         </b-form-input>
       </b-form-group>
+      <b-form-group id="form-password-group"
+                    label="Password:"
+                    label-for="form-password-input">
+        <b-form-input id="form-password-input"
+                      type="text"
+                      v-model="addUserForm.password"
+                      required
+                      placeholder="Enter password">
+        </b-form-input>
+      </b-form-group>
       <b-form-group id="form-photo-group"
                     label="Photo:"
                     label-for="form-photo-input">
@@ -105,6 +115,16 @@
                         placeholder="Enter email">
           </b-form-input>
         </b-form-group>
+        <b-form-group id="form-password-edit-group"
+                      label="Password:"
+                      label-for="form-password-edit-input">
+          <b-form-input id="form-password-edit-input"
+                        type="text"
+                        v-model="editForm.password"
+                        required
+                        placeholder="Enter Password">
+          </b-form-input>
+        </b-form-group>
         <b-form-group id="form-photo-edit-group"
                       label="Photo:"
                       label-for="form-photo-edit-input">
@@ -133,12 +153,14 @@ export default {
       addUserForm: {
         username: '',
         email: '',
+        password: '',
         photo: '',
       },
       editForm: {
         id: '',
         username: '',
         email: '',
+        password: '',
         photo: '',
       },
       message: '',
@@ -211,10 +233,12 @@ export default {
     initForm() {
       this.addUserForm.username = '';
       this.addUserForm.email = '';
+      this.addUserForm.password = '';
       this.addUserForm.photo = '';
       this.editForm.id = '';
       this.editForm.username = '';
       this.editForm.email = '';
+      this.editForm.password = '';
       this.editForm.photo = '';
     },
     onSubmitUpdate(evt) {
@@ -223,6 +247,7 @@ export default {
       const payload = {
         username: this.editForm.username,
         email: this.editForm.email,
+        password: this.editForm.password,
         photo: this.editForm.photo,
       };
       this.updateUser(payload, this.editForm.id);
@@ -239,6 +264,7 @@ export default {
       const payload = {
         username: this.addUserForm.username,
         email: this.addUserForm.email,
+        password: this.addUserForm.password,
         photo: this.addUserForm.photo,
       };
       this.addUser(payload);

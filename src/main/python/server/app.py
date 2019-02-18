@@ -6,7 +6,8 @@ from email.utils import parseaddr
 import imghdr
 import os
 from validate_email import validate_email
-
+from flask_httpauth import HTTPBasicAuth
+auth = HTTPBasicAuth()
 
 # configuration
 DEBUG = True
@@ -23,18 +24,20 @@ USERS = [
 
 conn = sqlite3.connect('user.db')
 c = conn.cursor()
-c.execute('''CREATE TABLE IF NOT EXISTS users(id text, username text, email text, photo text)''')
+c.execute('''CREATE TABLE IF NOT EXISTS users(id text, username text, email text, password text, photo text)''')
 for row in c.execute('SELECT * FROM users ORDER BY username;'):
-    id, username, email, photo = str(row).split(",")
+    id, username, email, password, photo = str(row).split(",")
     id = id.lstrip("(").strip("'")
     username = username.strip(" '")
     email = email.strip(" '")
+    password = password.strip(" '")
     photo = photo.rstrip(")").strip(" '")
-    USERS.append({'id': id, 'username': username, 'email': email, 'photo': photo})
+    USERS.append({'id': id, 'username': username, 'email': email, 'password': password, 'photo': photo})
 conn.close()
 
 # sanity check route
 @app.route('/ping', methods=['GET'])
+@auth.login_required
 def ping_pong():
     return jsonify('pong!')
 
@@ -56,12 +59,13 @@ def all_users():
                             'id': uuid.uuid4().hex,
                             'username': post_data.get('username'),
                             'email': post_data.get('email'),
+                            'password': post_data.get('password'),
                             'photo': post_data.get('photo')
                         })
                         conn = sqlite3.connect('user.db')
                         c = conn.cursor()
-                        c.execute('''CREATE TABLE IF NOT EXISTS users(id text, username text, email text, photo text)''')
-                        c.execute("INSERT INTO users VALUES ('%s', '%s','%s','%s');" % (USERS[len(USERS)-1]['id'], post_data.get('username'), post_data.get('email'), post_data.get('photo')))
+                        c.execute('''CREATE TABLE IF NOT EXISTS users(id text, username text, email text, password text, photo text)''')
+                        c.execute("INSERT INTO users VALUES ('%s', '%s','%s','%s' ,'%s');" % (USERS[len(USERS)-1]['id'], post_data.get('username'), post_data.get('email'), post_data.get('password'), post_data.get('photo')))
                         conn.commit()
                         conn.close()
                         response_object['message'] = 'User added!'
@@ -98,12 +102,13 @@ def single_user(user_id):
                             'id': uuid.uuid4().hex,
                             'username': post_data.get('username'),
                             'email': post_data.get('email'),
+                            'password': post_data.get('password'),
                             'photo': post_data.get('photo')
                         })
                         conn = sqlite3.connect('user.db')
                         c = conn.cursor()
-                        c.execute('''CREATE TABLE IF NOT EXISTS users(id text, username text, email text, photo text)''')
-                        c.execute("INSERT INTO users VALUES ('%s', '%s','%s','%s');" % (USERS[len(USERS)-1]['id'], post_data.get('username'), post_data.get('email'), post_data.get('photo')))
+                        c.execute('''CREATE TABLE IF NOT EXISTS users(id text, username text, email text, password text, photo text)''')
+                        c.execute("INSERT INTO users VALUES ('%s', '%s','%s','%s' ,'%s');" % (USERS[len(USERS)-1]['id'], post_data.get('username'), post_data.get('email'), post_data.get('password'), post_data.get('photo')))
                         conn.commit()
                         conn.close()
                         response_object['message'] = 'User updated!'
@@ -130,7 +135,7 @@ def remove_user(user_id):
             USERS.remove(user)
             conn = sqlite3.connect('user.db')
             c = conn.cursor()
-            c.execute('''CREATE TABLE IF NOT EXISTS users(id text, username text, email text, photo text)''')
+            c.execute('''CREATE TABLE IF NOT EXISTS users(id text, username text, email text, password text, photo text)''')
             c.execute("DELETE FROM users WHERE id LIKE '%s';" % user_id)
             conn.commit()
             conn.close()
