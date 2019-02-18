@@ -59,7 +59,7 @@ def get_users():
     return jsonify(response_object)
 
 @app.route('/users', methods=['POST'])
-@auth.login_required
+#@auth.login_required
 def all_users():
     response_object = {'status': 'success'}
     post_data = request.get_json()
@@ -98,7 +98,7 @@ def all_users():
     return jsonify(response_object)
 
 @app.route('/users/<user_id>', methods=['PUT', 'DELETE'])
-@auth.login_required
+#@auth.login_required
 def single_user(user_id):
     response_object = {'status': 'success'}
     if request.method == 'PUT':
