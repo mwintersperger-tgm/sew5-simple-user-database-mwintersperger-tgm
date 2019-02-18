@@ -6,6 +6,7 @@ from email.utils import parseaddr
 import imghdr
 import os
 from validate_email import validate_email
+from passlib.apps import custom_app_context as pwd_context
 from flask_httpauth import HTTPBasicAuth
 auth = HTTPBasicAuth()
 
@@ -41,6 +42,16 @@ conn.close()
 def ping_pong():
     return jsonify('pong!')
 
+
+def hash_password(password):
+    return pwd_context.encrypt(password)
+
+@auth.verify_password
+def verify_password(email, password):
+    for user in USERS:
+        if email == user['email']:
+            return pwd_context.verify(password, user['password'])
+
 @app.route('/users', methods=['GET'])
 def get_users():
     response_object = {'status': 'success'}
@@ -48,6 +59,7 @@ def get_users():
     return jsonify(response_object)
 
 @app.route('/users', methods=['POST'])
+@auth.login_required
 def all_users():
     response_object = {'status': 'success'}
     post_data = request.get_json()
@@ -64,13 +76,13 @@ def all_users():
                         'id': uuid.uuid4().hex,
                         'username': post_data.get('username'),
                         'email': post_data.get('email'),
-                        'password': post_data.get('password'),
+                        'password': hash_password(post_data.get('password')),
                         'photo': post_data.get('photo')
                     })
                     conn = sqlite3.connect('user.db')
                     c = conn.cursor()
                     c.execute('''CREATE TABLE IF NOT EXISTS users(id text, username text, email text, password text, photo text)''')
-                    c.execute("INSERT INTO users VALUES ('%s', '%s','%s','%s' ,'%s');" % (USERS[len(USERS)-1]['id'], post_data.get('username'), post_data.get('email'), post_data.get('password'), post_data.get('photo')))
+                    c.execute("INSERT INTO users VALUES ('%s', '%s','%s','%s' ,'%s');" % (USERS[len(USERS)-1]['id'], post_data.get('username'), post_data.get('email'), hash_password(post_data.get('password')), post_data.get('photo')))
                     conn.commit()
                     conn.close()
                     response_object['message'] = 'User added!'
@@ -86,6 +98,7 @@ def all_users():
     return jsonify(response_object)
 
 @app.route('/users/<user_id>', methods=['PUT', 'DELETE'])
+@auth.login_required
 def single_user(user_id):
     response_object = {'status': 'success'}
     if request.method == 'PUT':
@@ -105,13 +118,13 @@ def single_user(user_id):
                             'id': uuid.uuid4().hex,
                             'username': post_data.get('username'),
                             'email': post_data.get('email'),
-                            'password': post_data.get('password'),
+                            'password': hash_password(post_data.get('password')),
                             'photo': post_data.get('photo')
                         })
                         conn = sqlite3.connect('user.db')
                         c = conn.cursor()
                         c.execute('''CREATE TABLE IF NOT EXISTS users(id text, username text, email text, password text, photo text)''')
-                        c.execute("INSERT INTO users VALUES ('%s', '%s','%s','%s' ,'%s');" % (USERS[len(USERS)-1]['id'], post_data.get('username'), post_data.get('email'), post_data.get('password'), post_data.get('photo')))
+                        c.execute("INSERT INTO users VALUES ('%s', '%s','%s','%s' ,'%s');" % (USERS[len(USERS)-1]['id'], post_data.get('username'), post_data.get('email'), hash_password(post_data.get('password')), post_data.get('photo')))
                         conn.commit()
                         conn.close()
                         response_object['message'] = 'User updated!'
