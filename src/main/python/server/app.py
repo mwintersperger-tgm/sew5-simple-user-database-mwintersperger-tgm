@@ -41,45 +41,48 @@ conn.close()
 def ping_pong():
     return jsonify('pong!')
 
-@app.route('/users', methods=['GET', 'POST'])
+@app.route('/users', methods=['GET'])
+def get_users():
+    response_object = {'status': 'success'}
+    response_object['users'] = USERS
+    return jsonify(response_object)
+
+@app.route('/users', methods=['POST'])
 def all_users():
     response_object = {'status': 'success'}
-    if request.method == 'POST':
-        post_data = request.get_json()
-        if len(post_data.get('username')) <= 256:
-            if validate_email(post_data.get('email')) is True:
-                for user in USERS:
-                    if post_data.get('email') == user['email']:
-                        response_object['message'] = 'Email already exists!'
-                        response_object['status'] = 'failure'
-                        return jsonify(response_object)
-                try:
-                    if imghdr.what(r''+post_data.get('photo')) is 'png' or imghdr.what(r''+post_data.get('photo')) is 'jpeg':
-                        USERS.append({
-                            'id': uuid.uuid4().hex,
-                            'username': post_data.get('username'),
-                            'email': post_data.get('email'),
-                            'password': post_data.get('password'),
-                            'photo': post_data.get('photo')
-                        })
-                        conn = sqlite3.connect('user.db')
-                        c = conn.cursor()
-                        c.execute('''CREATE TABLE IF NOT EXISTS users(id text, username text, email text, password text, photo text)''')
-                        c.execute("INSERT INTO users VALUES ('%s', '%s','%s','%s' ,'%s');" % (USERS[len(USERS)-1]['id'], post_data.get('username'), post_data.get('email'), post_data.get('password'), post_data.get('photo')))
-                        conn.commit()
-                        conn.close()
-                        response_object['message'] = 'User added!'
-                except:
-                    response_object['message'] = 'Image is not valid!'
+    post_data = request.get_json()
+    if len(post_data.get('username')) <= 256:
+        if validate_email(post_data.get('email')) is True:
+            for user in USERS:
+                if post_data.get('email') == user['email']:
+                    response_object['message'] = 'Email already exists!'
                     response_object['status'] = 'failure'
-            else:
-                response_object['message'] = 'Email is not valid!'
+                    return jsonify(response_object)
+            try:
+                if imghdr.what(r''+post_data.get('photo')) is 'png' or imghdr.what(r''+post_data.get('photo')) is 'jpeg':
+                    USERS.append({
+                        'id': uuid.uuid4().hex,
+                        'username': post_data.get('username'),
+                        'email': post_data.get('email'),
+                        'password': post_data.get('password'),
+                        'photo': post_data.get('photo')
+                    })
+                    conn = sqlite3.connect('user.db')
+                    c = conn.cursor()
+                    c.execute('''CREATE TABLE IF NOT EXISTS users(id text, username text, email text, password text, photo text)''')
+                    c.execute("INSERT INTO users VALUES ('%s', '%s','%s','%s' ,'%s');" % (USERS[len(USERS)-1]['id'], post_data.get('username'), post_data.get('email'), post_data.get('password'), post_data.get('photo')))
+                    conn.commit()
+                    conn.close()
+                    response_object['message'] = 'User added!'
+            except:
+                response_object['message'] = 'Image is not valid!'
                 response_object['status'] = 'failure'
         else:
-            response_object['message'] = 'Username too long!'
+            response_object['message'] = 'Email is not valid!'
             response_object['status'] = 'failure'
     else:
-        response_object['users'] = USERS
+        response_object['message'] = 'Username too long!'
+        response_object['status'] = 'failure'
     return jsonify(response_object)
 
 @app.route('/users/<user_id>', methods=['PUT', 'DELETE'])
