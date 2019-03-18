@@ -40,12 +40,12 @@ Damit das programm auch als Webserver läuft muss man folgende zeilen in seinem 
 Diesen server muss man natürlich auch bei programm aufruf starten.
 
     if __name__ == '__main__':
-        app.run()
+      app.run(host='127.0.0.1', port=5000)
 
 
 #### Imports
 
-    from flask import Flask, jsonify, request
+    from flask import Flask, jsonify, request, render_template
     from flask_cors import CORS
 
 ### Single-Page-Application-with-Vue.js
@@ -64,6 +64,38 @@ App.vue welches sich in client/src befinded ist der wrapper in dem die anderen .
 Dies ist auch das file in dem man das vue.js logo entfernen kann.
 
 Axios erlaubt vue.js die python-flask application anzusprechen.
+
+#### Making vue Static
+
+Dammit das Programm in einer Productions umgebung verwendbar ist darf die Weboberfläche nicht immer erst mit ``npm run dev`` gestarted werden.
+Als solches müssen folgende Schritte gefolgt werden dammit die Weboberfläche automatisch zusammen mit dem Flask server gestarted:
+
+1. Ändere den static asset ordner
+    Öffne /config/index.js und Ändere die Folgenden Zeilen:
+
+            index: path.resolve(__dirname, '../dist/index.html'),
+            assetsRoot: path.resolve(__dirname, '../dist'),
+    zu:
+
+            index: path.resolve(__dirname, '../../dist/index.html'),
+            assetsRoot: path.resolve(__dirname, '../../dist'),
+    Dies führt dazu das sich der static asset ordner auf der höhe des Frontend/Backend ordner formt.
+2. Erzeuge den static asset ordner
+    Hierfür einfach das build command ``npm run build`` im Backend folder ausführen.
+
+3. Binde den static folder in das Backend ein
+    Damit Flask den static folder verwenden kann muss wir ihn einbinden indem wir app = Flask wie folgt erweitert.
+
+        app = Flask(__name__,
+            static_folder = "../dist/static",
+            template_folder = "../dist")
+
+4. Rendern des Frontend
+    Nun da wir den static ordner eingebunden haben, mussen wir ihn auch verwenden. Dies tun wir wie folgt:
+
+        @app.route('/')
+            def index():
+            return render_template("index.html")
 
 ### Client-Desktop-Application
 
