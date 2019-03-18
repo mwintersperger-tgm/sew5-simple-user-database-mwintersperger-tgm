@@ -17,6 +17,11 @@ Implementieren Sie eine einfache Userdatenbank, welche ein Erstellen, das Ausgeb
 
 Überprüfen Sie die CRUD-Funktionen mittels Unit- und System-Tests.  
 
+## ToDo
+
+Umsetzung der jetzigen aufgabe als ToDo list + Done/Not Done Flag welche editierbar ist.
+
+vue.js example implementierung
 
 ## Bewertung
 Gruppengrösse: 1 Person

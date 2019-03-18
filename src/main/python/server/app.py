@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
 import sqlite3
 import uuid
@@ -14,8 +14,12 @@ auth = HTTPBasicAuth()
 DEBUG = True
 
 # instantiate the app
-app = Flask(__name__)
+
+app = Flask(__name__,
+            static_folder = "../dist/static",
+            template_folder = "../dist")
 app.config.from_object(__name__)
+
 
 # enable CORS
 CORS(app)
@@ -51,6 +55,10 @@ def verify_password(email, password):
     for user in USERS:
         if email == user['email']:
             return pwd_context.verify(password, user['password'])
+
+@app.route('/')
+def index():
+    return render_template("index.html")
 
 @app.route('/users', methods=['GET'])
 def get_users():
@@ -157,6 +165,7 @@ def remove_user(user_id):
             conn.close()
             return True
     return False
+
 
 if __name__ == '__main__':
     app.run()
