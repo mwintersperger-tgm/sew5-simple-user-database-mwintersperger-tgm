@@ -107,9 +107,7 @@ Der server wird mit "python app.py" im server order ausgeführt.
 
 ### Weboberfläche
 
-Om die Weboberfläche zu erzeugen muss "npm run dev" im Client ordner via CLI ausgeführt werden.
-
-Zu finden ist sie dann auf localhost:8080
+Die Weboberfäche wird automatisch mit dem Flask Server gestarted und befindet sich auf 127.0.0.1:5000
 
 ### Client-Desktop-Application
 

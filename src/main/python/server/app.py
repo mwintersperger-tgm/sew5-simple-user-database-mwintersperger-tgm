@@ -24,7 +24,25 @@ app.config.from_object(__name__)
 # enable CORS
 CORS(app)
 
+def hash_password(password):
+    return pwd_context.encrypt(password)
+
+@auth.verify_password
+def verify_password(lEmail, lPassword):
+    print("login email:"+lEmail)
+    print("login password:"+lPassword)
+    for user in USERS:
+        if lEmail == user['email']:
+            return pwd_context.verify(lPassword, user['password'])
+
 USERS = [
+    {
+        'id': uuid.uuid4().hex,
+        'username': 'admin',
+        'email': 'admin@admin.com',
+        'photo': 'test.jpeg',
+        'password': hash_password('admin')
+    }
 ]
 
 conn = sqlite3.connect('user.db')
@@ -42,19 +60,8 @@ conn.close()
 
 # sanity check route
 @app.route('/ping', methods=['GET'])
-@auth.login_required
 def ping_pong():
     return jsonify('pong!')
-
-
-def hash_password(password):
-    return pwd_context.encrypt(password)
-
-@auth.verify_password
-def verify_password(email, password):
-    for user in USERS:
-        if email == user['email']:
-            return pwd_context.verify(password, user['password'])
 
 @app.route('/')
 def index():
@@ -66,9 +73,18 @@ def get_users():
     response_object['users'] = USERS
     return jsonify(response_object)
 
+@app.route('/login', methods=['POST'])
+@auth.login_required
+def login_user():
+    print('Login')
+    response_object = {'status': 'success'}
+    response_object['message'] = 'Login successful!'
+    return jsonify(response_object)
+
+
 @app.route('/users', methods=['POST'])
-#@auth.login_required
-def all_users():
+@auth.login_required
+def post_user():
     response_object = {'status': 'success'}
     post_data = request.get_json()
     if len(post_data.get('username')) <= 256:
