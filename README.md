@@ -101,6 +101,24 @@ Als solches müssen folgende Schritte gefolgt werden dammit die Weboberfläche a
 
 Die Desktop-Application befindet sich im client file um ist ein einfaches PyQT5 programm welches via requests mit dem server communiziert.
 
+### Deploy to Production
+
+Der HTTP server welcher standardmäßig von Flask verwendet wird ist Werkzeug.
+Werkzeug ist light-weight und schnell und als solches idea für Development.
+Das problem ist jedoch das Werkzeug im Klartext kommuniziert und als solches komplett nutzlos für ein Production Environment ist.
+Flask weißt auf diese Tatsache mehrfach in ihrer Docu und jedes mal beim starten des Servers auf diese Tatsache hin.
+
+Als solches muss ein anderer Server verwendet werden, was jedoch je nach server sehr schnell gehen kann.
+So zum Beispiel der verwendete server Gevent muss nur mittels ``pip install gevent`` installiert werden und kann dann einfach mittel import eingebunden werden.
+
+    from gevent.pywsgi import WSGIServer
+
+    app = Flask(__name__)
+
+    if __name__ == '__main__':
+        http_server = WSGIServer(('', 5000), app)
+        http_server.serve_forever()
+
 ## Deployment
 
 Der server wird mit "python app.py" im server order ausgeführt.

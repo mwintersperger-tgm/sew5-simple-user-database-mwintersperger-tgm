@@ -1,11 +1,15 @@
 from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
+
 import sqlite3
 import uuid
 from email.utils import parseaddr
 import imghdr
 import os
 from validate_email import validate_email
+
+from gevent.pywsgi import WSGIServer
+
 from passlib.apps import custom_app_context as pwd_context
 from flask_httpauth import HTTPBasicAuth
 auth = HTTPBasicAuth()
@@ -83,7 +87,7 @@ def login_user():
 
 
 @app.route('/users', methods=['POST'])
-@auth.login_required
+#@auth.login_required
 def post_user():
     response_object = {'status': 'success'}
     post_data = request.get_json()
@@ -184,4 +188,5 @@ def remove_user(user_id):
 
 
 if __name__ == '__main__':
-      app.run(host='127.0.0.1', port=5000)
+    http_server = WSGIServer(('', 5000), app)
+    http_server.serve_forever()
