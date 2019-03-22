@@ -2,9 +2,6 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-10">
-        <button type="button" class="btn btn-success btn-sm" v-b-modal.login-user-modal>
-        Login
-        </button>
         <h1>Users</h1>
         <hr><br><br>
         <alert :message="message" v-if="showMessage"></alert>
@@ -44,36 +41,6 @@
         </table>
       </div>
     </div>
-
-    <b-modal ref="loginUserModal"
-             id="login-user-modal"
-             title="Login"
-             hide-footer>
-      <b-form @submit="onSubmitLogin" @reset="onResetLogin" class="w-100">
-      <b-form-group id="form-email-login-group"
-                    label="Email:"
-                    label-for="form-email-login-input">
-        <b-form-input id="form-email-login-input"
-                      type="text"
-                      v-model="loginUserForm.lEmail"
-                      required
-                      placeholder="Enter Email">
-        </b-form-input>
-      </b-form-group>
-      <b-form-group id="form-password-login-group"
-                    label="Password:"
-                    label-for="form-password-login-input">
-        <b-form-input id="form-password-input"
-                      type="text"
-                      v-model="loginUserForm.lPassword"
-                      required
-                      placeholder="Enter password">
-        </b-form-input>
-      </b-form-group>
-        <b-button type="submit" variant="primary">Submit</b-button>
-        <b-button type="reset" variant="danger">Reset</b-button>
-      </b-form>
-    </b-modal>
 
     <b-modal ref="addUserModal"
              id="user-modal"
@@ -198,10 +165,6 @@ export default {
         password: '',
         photo: '',
       },
-      loginUserForm: {
-        lEmail: '',
-        lPassword: '',
-      },
       message: '',
       showMessage: false,
     };
@@ -269,20 +232,6 @@ export default {
     onDeleteUser(user) {
       this.removeUser(user.id);
     },
-    loginUser(payload) {
-      const path = 'http://localhost:5000/login';
-      axios.post(path, payload)
-        .then((res) => {
-          this.getUsers();
-          this.message = res.data.message;
-          this.showMessage = true;
-        })
-        .catch((error) => {
-          // eslint-disable-next-line
-          console.log(error);
-          this.getUsers();
-        });
-    },
     initForm() {
       this.addUserForm.username = '';
       this.addUserForm.email = '';
@@ -330,8 +279,6 @@ export default {
       evt.preventDefault();
       this.$refs.addUserModal.hide();
       const payload = {
-        lEmail: this.loginUserForm.lEmail,
-        lPassword: this.loginUserForm.lPassword,
         username: this.addUserForm.username,
         email: this.addUserForm.email,
         password: this.addUserForm.password,

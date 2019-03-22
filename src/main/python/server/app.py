@@ -38,6 +38,7 @@ def verify_password(lEmail, lPassword):
     for user in USERS:
         if lEmail == user['email']:
             return pwd_context.verify(lPassword, user['password'])
+        return False
 
 USERS = [
     {
@@ -76,15 +77,6 @@ def get_users():
     response_object = {'status': 'success'}
     response_object['users'] = USERS
     return jsonify(response_object)
-
-@app.route('/login', methods=['POST'])
-@auth.login_required
-def login_user():
-    print('Login')
-    response_object = {'status': 'success'}
-    response_object['message'] = 'Login successful!'
-    return jsonify(response_object)
-
 
 @app.route('/users', methods=['POST'])
 @auth.login_required

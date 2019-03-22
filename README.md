@@ -119,13 +119,42 @@ So zum Beispiel der verwendete server Gevent muss nur mittels ``pip install geve
         http_server = WSGIServer(('', 5000), app)
         http_server.serve_forever()
 
+### Authorization
+
+Authorization für Flask benötigt zwei imports:
+
+    from passlib.apps import custom_app_context as pwd_context
+    from flask_httpauth import HTTPBasicAuth
+
+Der erste Import erlaubt das Encrypten und das vergleichen von Encrypted Strings, der zweite Import erlaubt Flask authorization zu supporten.
+Die Authorization kann dann beispielsweise so aussehen:
+
+    def hash_password(password):
+    return pwd_context.encrypt(password)
+
+    @auth.verify_password
+    def verify_password(lEmail, lPassword):
+        for user in USERS:
+            if lEmail == user['email']:
+                return pwd_context.verify(lPassword, user['password'])
+        return False
+
+``@auth.verify_password`` bedeuted das verify_password zur authorization aufgerufen wird.
+Die Parameter von verify_password bedeuten, dass die Methode automatisch nach diesen Keys als JSON payload im request sucht.
+Diese Müssen nicht extra übergeben werden da sowohl Chrome als auch Firefox erkennen das im Backend danach gefragt wird und auto generieren einen popup.
+Der Rückgabewert der methode ist ein Boolean.
+
+Methoden lassen sich als Authorized User only definieren mit der Folgenden Annotation:
+
+    @auth.login_required
+
 ## Deployment
 
 Der server wird mit "python app.py" im server order ausgeführt.
 
 ### Weboberfläche
 
-Die Weboberfäche wird automatisch mit dem Flask Server gestarted und befindet sich auf 127.0.0.1:5000
+Die Weboberfäche wird automatisch mit dem Flask Server gestarted und befindet sich auf localhost:5000
 
 ### Client-Desktop-Application
 
