@@ -87,7 +87,7 @@ def login_user():
 
 
 @app.route('/users', methods=['POST'])
-#@auth.login_required
+@auth.login_required
 def post_user():
     response_object = {'status': 'success'}
     post_data = request.get_json()
@@ -126,7 +126,7 @@ def post_user():
     return jsonify(response_object)
 
 @app.route('/users/<user_id>', methods=['PUT', 'DELETE'])
-#@auth.login_required
+@auth.login_required
 def single_user(user_id):
     response_object = {'status': 'success'}
     if request.method == 'PUT':

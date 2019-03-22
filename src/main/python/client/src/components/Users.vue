@@ -44,6 +44,7 @@
         </table>
       </div>
     </div>
+
     <b-modal ref="loginUserModal"
              id="login-user-modal"
              title="Login"
@@ -73,6 +74,7 @@
         <b-button type="reset" variant="danger">Reset</b-button>
       </b-form>
     </b-modal>
+
     <b-modal ref="addUserModal"
              id="user-modal"
              title="Add a new user"
@@ -122,6 +124,7 @@
         <b-button type="reset" variant="danger">Reset</b-button>
       </b-form>
     </b-modal>
+
     <b-modal ref="editUserModal"
              id="user-update-modal"
              title="Update"
